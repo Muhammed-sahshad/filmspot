@@ -11,7 +11,7 @@ export const loginUser = async (email: string, password: string) => {
       throw new Error(error.response?.data?.message || "Login Failed");
     }
 
-    throw new Error("An unknown error occurred");
+    throw new Error("An unknown error occurred while login");
   }
 };
 
@@ -24,7 +24,7 @@ export const signupUser = async (name: string, email: string, password: string) 
       throw new Error(error.response?.data?.message || "Signup Failed");
     }
 
-    throw new Error("An unknown error occurred");
+    throw new Error("An unknown error occurred while singup");
   }
 };
 
@@ -37,6 +37,19 @@ export const refreshAuthToken = async() => {
       throw new Error(error.response?.data?.message || "Token Refresh Failed")
     }
 
-    throw new Error("An unknown error occurred")
+    throw new Error("An unknown error occurred while refreshing token")
+  }
+}
+
+export const logoutUser = async() => {
+  try {
+    const res = await apiClient.post("/auth/logout")
+    return res.data
+  } catch (error) {
+    if(error instanceof AxiosError){
+      throw new Error(error.response?.data?.message || "Logout Failed")
+    }
+
+    throw new Error("An unknown error occurred while logging out")
   }
 }

@@ -28,8 +28,7 @@ export function LoginForm() {
   })
 
   const onSubmit = async ({email, password}: LoginFormData) => {
-    const res = dispatch(login({email, password}))
-    console.log(res)
+    dispatch(login({email, password}))
   }
 
   return (
