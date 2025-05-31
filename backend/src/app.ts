@@ -1,6 +1,7 @@
 import "./shared/configs/dotenv"
 import express from "express"
-import authController from "./modules/auth/route/auth.routes"
+import authRoutes from "./modules/auth/route/auth.routes"
+import movieRoutes from "./modules/movies/router/movies.routes"
 import cookieParser from "cookie-parser"
 import connectDB from "./shared/configs/mogodb"
 import cors from "cors"
@@ -22,7 +23,8 @@ app.use(
 app.use(express.json())
 app.use(cookieParser());
 
-app.use("/api/auth", authController)
+app.use("/api/auth", authRoutes)
+app.use("/api/movies", movieRoutes)
 
 app.use(errorHandler)
 

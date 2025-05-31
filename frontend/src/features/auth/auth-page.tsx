@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function AuthPage() {
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.auth.user);
+  const {user} = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
-  });
+  },[user, navigate]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">

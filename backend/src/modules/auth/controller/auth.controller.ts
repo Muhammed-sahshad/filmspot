@@ -8,7 +8,7 @@ export class AuthController implements IAuthController {
   constructor(private service: AuthService) {}
 
   register = asyncHandler(async (req: Request, res: Response) => {
-    console.log(req.body)
+    console.log(req.body);
     const { name, email, password } = req.body;
     const { refreshToken, ...user } = await this.service.register(name, email, password);
 
@@ -24,7 +24,7 @@ export class AuthController implements IAuthController {
 
   login = asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    const {refreshToken, ...user} = await this.service.login(email, password);
+    const { refreshToken, ...user } = await this.service.login(email, password);
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -33,13 +33,26 @@ export class AuthController implements IAuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.status(StatusCodes.OK).json({message: "user logged in succesfull", user})
+    res.status(StatusCodes.OK).json({ message: "user logged in succesfull", user });
   });
 
   refresh = asyncHandler(async (req: Request, res: Response) => {
-
-    const refreshToken = req.cookies.refreshToken as string
+    const refreshToken = req.cookies.refreshToken as string;
+    if(!refreshToken){
+      res.status(StatusCodes.FORBIDDEN).json({message: "token not found"})
+      return
+    }
     const user = await this.service.refresh(refreshToken);
-    res.status(StatusCodes.OK).json({message: "token refreshed succesfull", user})
+    res.status(StatusCodes.OK).json({ message: "token refreshed succesfull", user });
+  });
+
+  logout = asyncHandler(async (req: Request, res: Response) => {
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    res.status(StatusCodes.OK).json({ message: "Logged out successfully" });
   });
 }

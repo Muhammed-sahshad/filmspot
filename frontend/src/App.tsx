@@ -3,6 +3,7 @@ import { LoginPage } from "./pages/login-page";
 import { useEffect } from "react";
 import { useAppDispatch } from "./app/hooks";
 import { refreshToken } from "./features/auth/authSlice";
+import { HomePage } from "./pages/home-page";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<div>home</div>}/>
+        <Route path="/" element={<HomePage/>}/>
       </Routes>
     </Router>
   );
