@@ -1,10 +1,11 @@
 import { AxiosError } from "axios";
 import apiClient from "../../lib/axios";
+import { toast } from "sonner";
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    console.log(email, password)
     const res = await apiClient.post("/auth/login", { email, password });
+    console.log(res.data)
     return res.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -44,6 +45,7 @@ export const refreshAuthToken = async() => {
 export const logoutUser = async() => {
   try {
     const res = await apiClient.post("/auth/logout")
+    toast.info("logged out successfully")
     return res.data
   } catch (error) {
     if(error instanceof AxiosError){

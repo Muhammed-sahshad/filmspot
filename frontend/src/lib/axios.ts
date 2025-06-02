@@ -1,4 +1,12 @@
+import type { RootState } from "@/app/store";
+import type { Store } from "@reduxjs/toolkit";
 import axios from "axios";
+
+let store: Store<RootState> | null = null;
+
+export const injectStore = (_store: Store<RootState>) => {
+  store = _store;
+};
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api",
@@ -7,7 +15,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = store?.getState().auth.accessToken
     if (accessToken && config.headers) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
@@ -41,7 +49,7 @@ api.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-       
+       console.log(refreshError)
       }
     }
 

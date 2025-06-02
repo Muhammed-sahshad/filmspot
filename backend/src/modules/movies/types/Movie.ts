@@ -4,5 +4,4 @@ export interface Movie {
   Year: string;
   Type: string
   Poster: string;
-  fav?: boolean
 }
