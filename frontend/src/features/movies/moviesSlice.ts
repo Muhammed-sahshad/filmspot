@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { fetchMovies } from "./moviesApi";
+import { fetchMovies, toggleMovieFav } from "./moviesApi";
 import type { Movie } from "../../types/movie";
 import type { AxiosError } from "axios";
 
@@ -33,6 +33,19 @@ export const searchMovies = createAsyncThunk<
   }
 });
 
+export const toggleFavourite = createAsyncThunk<{ movie: Movie }, { imdbID: string }>(
+  "movies/favourite",
+  async ({ imdbID }, thunkAPI) => {
+    try {
+      const data = await toggleMovieFav(imdbID);
+      return data;
+    } catch (error) {
+      const err = error as AxiosError;
+      return thunkAPI.rejectWithValue(err?.message || "Fialed to toggle movie favourite");
+    }
+  }
+);
+
 const movieSlice = createSlice({
   name: "movies",
   initialState,
@@ -43,7 +56,7 @@ const movieSlice = createSlice({
       state.currentPage = 1;
       state.error = null;
     },
-     setPage: (state, action) => {
+    setPage: (state, action) => {
       state.currentPage = action.payload;
     },
   },
@@ -62,6 +75,12 @@ const movieSlice = createSlice({
       .addCase(searchMovies.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(toggleFavourite.fulfilled, (state, action) => {
+        state.loading = false;
+        state.movies = state.movies.map((movie) =>
+          movie.imdbID === action.payload.movie.imdbID ? { ...movie, fav: action.payload.movie.fav ? true : false } : movie
+        );
       });
   },
 });

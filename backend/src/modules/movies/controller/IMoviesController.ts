@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 
-export interface IMovieController {
+export interface IMoviesController {
   getMovies: RequestHandler
+  toggleFavourite: RequestHandler
 }

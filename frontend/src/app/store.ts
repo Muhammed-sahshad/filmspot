@@ -1,15 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../features/auth/authSlice";
+import authReducer from "../features/auth/authSlice"
 import movieReducer from "../features/movies/moviesSlice";
-// import favoriteReducer from '../features/favorite/favoriteSlice';
+import { injectStore } from "@/lib/axios";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     auth: authReducer,
     movie: movieReducer,
-    // favorite: favoriteReducer,
   },
 });
 
+injectStore(store);
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export default store

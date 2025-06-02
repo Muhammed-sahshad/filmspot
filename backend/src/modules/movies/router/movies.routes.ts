@@ -1,9 +1,11 @@
-import { Router } from 'express';
-import { MovieController } from '../controller/movies.controller';
+import { Router } from "express";
+import { moviesController } from "../di/movies.di";
+import { authMiddleware } from "../../../shared/middlewares/auth.middleware";
+import { optionalAuthMiddleware } from "../../../shared/middlewares/optionalAuth.middleware";
 
-const controller = new MovieController();
 const router = Router();
 
-router.get('/search', controller.getMovies);
+router.get("/search", optionalAuthMiddleware, moviesController.getMovies);
+router.post("/favourite", authMiddleware, moviesController.toggleFavourite);
 
 export default router;

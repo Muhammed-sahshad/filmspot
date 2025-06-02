@@ -1,44 +1,42 @@
-import { useState } from "react"
-import { Heart, Star } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import type { Movie } from "@/types/movie"
-
-// interface Movie {
-//   Title: string
-//   Year: string
-//   imdbID: string
-//   Type: string
-//   Poster: string
-// }
+import { useState } from "react";
+import { Heart, Star } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { Movie } from "@/types/movie";
+import { useAppDispatch } from "@/app/hooks";
+import { toggleFavourite } from "../moviesSlice";
 
 interface MovieCardProps {
-  movie: Movie
+  movie: Movie;
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
-  const [isLiked, setIsLiked] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
+  const dispatch =  useAppDispatch()
+  const [isHovered, setIsHovered] = useState(false);
 
-  const rating = 4.8
+  const rating = 4.8;
+
+  const handleLikeClick = () => {
+    dispatch(toggleFavourite({imdbID:movie.imdbID}))
+  }
 
   return (
     <Card
       className={cn(
         "overflow-hidden transition-all duration-300 h-[370px] pt-0",
-        isHovered ? "transform scale-[1.03] shadow-xl" : "shadow-md",
+        isHovered ? "transform scale-[1.03] shadow-xl" : "shadow-md"
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden">
         <img
-  src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.svg?height=450&width=300"}
-  alt={movie.Title}
-  className="w-full  object-cover transition-transform duration-300"
-  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-/>
+          src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.svg?height=450&width=300"}
+          alt={movie.Title}
+          className="w-full  object-cover transition-transform duration-300"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         <div className="absolute top-2 right-2 z-10">
@@ -46,11 +44,11 @@ export default function MovieCard({ movie }: MovieCardProps) {
             size="icon"
             className={cn(
               "rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50",
-              isLiked ? "text-red-500" : "text-white",
+              movie.fav ? "text-red-500" : "text-white"
             )}
-            onClick={() => setIsLiked(!isLiked)}
+            onClick={handleLikeClick}
           >
-            <Heart className={cn("h-5 w-5", isLiked && "fill-current")} />
+            <Heart className={cn("h-5 w-5", movie.fav && "fill-current")} />
             <span className="sr-only">Add to favorites</span>
           </Button>
         </div>
@@ -71,5 +69,5 @@ export default function MovieCard({ movie }: MovieCardProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

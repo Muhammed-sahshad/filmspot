@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { logout } from "@/features/auth/authSlice"
+import { logout } from "@/features/auth/authThunk"
 
 export default function MovieHeader() {
   const dispatch = useAppDispatch()
@@ -44,11 +44,11 @@ export default function MovieHeader() {
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                {/* <DropdownMenuItem>
                   <Link to="/watchlist" className="w-full">
                     Favourites
                   </Link>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem onClick={handleLogout} className="text-red-500 focus:text-red-500">
                   Logout
                 </DropdownMenuItem>

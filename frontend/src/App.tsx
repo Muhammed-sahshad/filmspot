@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./pages/login-page";
 import { useEffect } from "react";
 import { useAppDispatch } from "./app/hooks";
-import { refreshToken } from "./features/auth/authSlice";
 import { HomePage } from "./pages/home-page";
+import { refreshToken } from "./features/auth/authThunk";
+import { Toaster } from 'sonner';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ const App = () => {
 
   return (
     <Router>
+         <Toaster richColors position="top-right" />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage/>}/>

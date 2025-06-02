@@ -13,7 +13,7 @@ export default function Home() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
   const {movies, currentPage, totalResults} = useAppSelector((state) => state.movie);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("inception");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
@@ -62,7 +62,6 @@ export default function Home() {
             ))}
           </div>
         )}
-
 
        {movies.length > 0 && (
    <PaginationControls
