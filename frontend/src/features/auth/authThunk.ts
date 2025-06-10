@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { AxiosError } from "axios";
 import type { AuthResponse } from "./types";
 import { loginUser, logoutUser, refreshAuthToken, signupUser } from "./authApi";
+import { toast } from "sonner";
 
 export const login = createAsyncThunk<AuthResponse, { email: string; password: string }>(
   "auth/login",
@@ -12,6 +13,7 @@ export const login = createAsyncThunk<AuthResponse, { email: string; password: s
       return user;
     } catch (error) {
       const err = error as AxiosError;
+      toast.error(err?.message || "Login failed")
       return thunkAPI.rejectWithValue(err?.message || "Login failed");
     }
   }
@@ -25,6 +27,7 @@ export const signup = createAsyncThunk<AuthResponse, { name: string; email: stri
       return user;
     } catch (error) {
       const err = error as AxiosError;
+      toast.error(err?.message || "Signup Failed")
       return thunkAPI.rejectWithValue(err?.message || "Signup Failed");
     }
   }
