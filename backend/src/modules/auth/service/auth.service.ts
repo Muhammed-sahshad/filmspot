@@ -11,7 +11,7 @@ export class AuthService implements IAuthService {
   async register(name: string, email: string, password: string) {
     const existing = await this.repo.findByEmail(email);
     if (existing) {
-      throw new HttpException("Email already in use", 409);
+      throw new HttpException("Email already in use", StatusCodes.CONFLICT);
     }
 
     const hashed = await bcrypt.hash(password, 10);

@@ -32,7 +32,7 @@ api.interceptors.response.use(
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      error.response?.data?.message !== "Invalid refresh token"
+      error.response?.data?.message === "Token has expired"
     ) {
       originalRequest._retry = true;
 

@@ -12,7 +12,7 @@ declare module "express-serve-static-core"{
  export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     try {
       const accessToken: string =
-      req.cookies.accessToken || req.header("Authorization")?.split(" ")[1];
+      req.header("Authorization")?.split(" ")[1] as string;
       if (!accessToken){
         res.status(StatusCodes.UNAUTHORIZED).json({ error: "Unauthorized: No token provided" });
         return 
