@@ -41,7 +41,7 @@ export function LoginForm() {
             id="email"
             type="text"
             placeholder="Enter your email"
-            className="pl-10"
+            className="pl-10 rounded-full"
             {...register("email")}
           />
         </div>
@@ -58,7 +58,7 @@ export function LoginForm() {
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
-            className="pl-10 pr-10"
+            className="pl-10 pr-10 rounded-full"
             {...register("password")}
           />
           <Button
@@ -82,7 +82,7 @@ export function LoginForm() {
 
       <Button
         type="submit"
-        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+        className="w-full mt-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Signing in..." : "Sign In"}

@@ -42,7 +42,7 @@ export function SignupForm() {
             id="name"
             type="text"
             placeholder="Enter your full name"
-            className="pl-10"
+            className="pl-10 rounded-full"
             {...register("name")}
           />
         </div>
@@ -59,7 +59,7 @@ export function SignupForm() {
             id="signup-email"
             type="email"
             placeholder="Enter your email"
-            className="pl-10"
+            className="pl-10 rounded-full"
             {...register("email")}
           />
         </div>
@@ -76,7 +76,7 @@ export function SignupForm() {
             id="signup-password"
             type={showPassword ? "text" : "password"}
             placeholder="Create a password"
-            className="pl-10 pr-10"
+            className="pl-10 pr-10 rounded-full"
             {...register("password")}
           />
           <Button
@@ -100,7 +100,7 @@ export function SignupForm() {
 
       <Button
         type="submit"
-        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+        className="w-full mt-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Creating account..." : "Create Account"}

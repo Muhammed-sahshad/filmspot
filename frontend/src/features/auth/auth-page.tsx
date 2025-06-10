@@ -9,28 +9,27 @@ import { useNavigate } from "react-router-dom";
 
 export default function AuthPage() {
   const navigate = useNavigate();
-  const {user} = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
-  },[user, navigate]);
+  }, [user, navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen  flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-10" />
 
       <Card className="w-full max-w-md relative backdrop-blur-sm bg-white/95 dark:bg-slate-800/95 shadow-2xl border-0">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
-            <Film className="w-8 h-8 text-white" />
-          </div>
           <div>
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              FilmSpot
-            </CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-400">
+            <div className="flex gap-2 items-center justify-center">
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                FilmSpot
+              </CardTitle>
+            </div>
+            <CardDescription className="mt-3 text-slate-600 dark:text-slate-400">
               Your personal movie collection
             </CardDescription>
           </div>
@@ -38,9 +37,9 @@ export default function AuthPage() {
 
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="login">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-5 rounded-full">
+              <TabsTrigger value="login" className="rounded-full">Sign In</TabsTrigger>
+              <TabsTrigger value="signup" className="rounded-full">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
